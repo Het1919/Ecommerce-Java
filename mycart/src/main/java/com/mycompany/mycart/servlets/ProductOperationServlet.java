@@ -1,16 +1,25 @@
 package com.mycompany.mycart.servlets;
 
 import com.mycompany.mycart.dao.CategoryDao;
+import com.mycompany.mycart.dao.ProductDao;
 import com.mycompany.mycart.entities.Category;
+import com.mycompany.mycart.entities.Product;
 import com.mycompany.mycart.helper.FactoryProvider;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import org.hibernate.SessionFactory;
 
+@MultipartConfig
 public class ProductOperationServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -40,6 +49,61 @@ public class ProductOperationServlet extends HttpServlet {
                 return;
             } else if (op.trim().equals("addproduct")) {
                 //add product
+                //fetching product data
+                String pName = request.getParameter("pName");
+                String pDesc = request.getParameter("pDesc");
+                int pPrice =Integer.parseInt(request.getParameter("pPrice"));
+                int pDiscount =Integer.parseInt(request.getParameter("pDiscount"));
+                int pQuantity =Integer.parseInt(request.getParameter("pQuantity"));
+                int catId =Integer.parseInt(request.getParameter("catId"));
+                Part part = request.getPart("pPic");
+                
+                Product p = new Product();
+                p.setpName(pName);
+                p.setpDesc(pDesc);
+                p.setpPrice(pPrice);
+                p.setpDiscount(pDiscount);
+                p.setpQuantity(pQuantity);
+                p.setpPhoto(part.getSubmittedFileName());
+                
+                //get category by id
+                CategoryDao cdao = new CategoryDao(FactoryProvider.getFactory());
+                Category category = cdao.getCateoryById(catId);
+                
+                p.setCategory(category);
+                
+                //product save to db
+                ProductDao pdao = new ProductDao(FactoryProvider.getFactory());
+                pdao.save(p);
+                
+                //picture upload
+                //find out the path to upload photo
+                String path = request.getRealPath("img") + File.separator + "products" + File.separator + part.getSubmittedFileName();
+                System.out.println(path);
+                
+                try{
+                //uploading code
+                FileOutputStream fos = new FileOutputStream(path);
+                InputStream is = (part.getInputStream());
+                
+                //reading data
+                byte[] data = new byte[is.available()];
+                is.read(data);
+                
+                //writing data
+                fos.write(data);
+                
+                fos.close();
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                
+                
+                HttpSession httpSession = request.getSession();
+                httpSession.setAttribute("message", "Product is Added Successfully");
+                response.sendRedirect("admin.jsp");
+                return;
+                
             }
 
         }
@@ -83,5 +147,6 @@ public class ProductOperationServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 
 }

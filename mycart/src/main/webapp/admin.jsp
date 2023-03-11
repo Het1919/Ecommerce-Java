@@ -151,8 +151,9 @@
                     <div class="modal-body">
                         <!--form start-->
 
-                        <form action="ProductOperationServlet" method="POST">
-
+                        <form action="ProductOperationServlet" method="POST" enctype="multipart/form-data">
+                            
+                            <input type="hidden" name="operation" value="addproduct"/>
                             <!--product title-->
                             <div class="form-group mt-2">
                                 <input type='text' class="form-control" placeholder="Enter title of Product" name="pName" required/>
@@ -170,12 +171,12 @@
 
                             <!--product discount-->
                             <div class="form-group mt-2">
-                                <input type='text' class="form-control" placeholder="Enter product discount" name="pDiscount" required/>
+                                <input type='number' class="form-control" placeholder="Enter product discount" name="pDiscount" required/>
                             </div>
 
                             <!--product quantity-->
                             <div class="form-group mt-2">
-                                <input type='text' class="form-control" placeholder="Enter product quantity" name="pQuantity" required/>
+                                <input type='number' class="form-control" placeholder="Enter product quantity" name="pQuantity" required/>
                             </div>
 
                             <!--product category-->
