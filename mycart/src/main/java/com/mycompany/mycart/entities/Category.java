@@ -1,4 +1,3 @@
-
 package com.mycompany.mycart.entities;
 
 import java.util.ArrayList;
