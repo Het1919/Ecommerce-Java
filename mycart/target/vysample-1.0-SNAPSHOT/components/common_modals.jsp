@@ -22,3 +22,5 @@
     </div>
   </div>
 </div>
+
+<div id="toast">This is Our custom Toast text</div>
