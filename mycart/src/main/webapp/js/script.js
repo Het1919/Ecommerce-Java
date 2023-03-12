@@ -97,7 +97,7 @@ function updateCart()
 
         table = table + `
             <tr>
-                <td colspan='5' class="text-right font-weight-bold m-5" >Total Price : ${totalPrice}</td>
+                <td colspan="5" class="text-end fw-bold" >Total Price : ${totalPrice}</td>
             </tr>
             </table>`;
 
