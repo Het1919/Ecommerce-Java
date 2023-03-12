@@ -15,3 +15,14 @@
     background-color: cornflowerblue;
     border-color: cornflowerblue;
 }
+
+.discount-label{
+    font-size: 10px !important;
+    font-style: italic !important;
+}
+
+/*upload png photos from admin panel*/
+.product-card:hover{
+    background: #e2e2e2;
+    cursor: pointer;
+}
