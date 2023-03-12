@@ -4,6 +4,7 @@ com\mycompany\mycart\helper\FactoryProvider.class
 com\mycompany\mycart\servlets\LoginServlet.class
 com\mycompany\mycart\servlets\RegisterServlet.class
 com\mycompany\mycart\servlets\ProductOperationServlet.class
+com\mycompany\mycart\helper\Helper.class
 com\mycompany\mycart\dao\ProductDao.class
 com\mycompany\mycart\entities\Product.class
 com\mycompany\mycart\entities\User.class
