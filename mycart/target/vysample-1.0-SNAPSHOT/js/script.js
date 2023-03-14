@@ -59,7 +59,7 @@ function updateCart()
         console.log("Cart is Empty!!..");
         $(".cart-items").html("( 0 )");
         $(".cart-body").html("<h3>Cart does not have any items</h3>");
-        $(".checkout-btn").addClass('disabled');
+        $(".checkout-btn").attr('disabled',true);
     } else
     {
         //There is something in cart to show
@@ -102,6 +102,7 @@ function updateCart()
             </table>`;
 
         $(".cart-body").html(table);
+        $(".checkout-btn").attr('disabled',false);
     }
 }
 ;
@@ -134,4 +135,9 @@ function showToast(content) {
     setTimeout(() => {
         $("#toast").removeClass("display");
     }, 2000);
+}
+
+function goToCheckout()
+{
+    window.location = "checkout.jsp";
 }

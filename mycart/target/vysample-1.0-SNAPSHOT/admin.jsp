@@ -1,3 +1,5 @@
+<%@page import="java.util.Map"%>
+<%@page import="com.mycompany.mycart.helper.Helper"%>
 <%@page import="java.util.List"%>
 <%@page import="com.mycompany.mycart.entities.Category"%>
 <%@page import="com.mycompany.mycart.helper.FactoryProvider"%>
@@ -18,6 +20,14 @@
     }
 %>
 
+<%
+    CategoryDao cdao = new CategoryDao(FactoryProvider.getFactory());
+    List<Category> list = cdao.getcategories();
+
+    //getting count
+    Map<String, Long> m = Helper.getCounts(FactoryProvider.getFactory());
+%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -26,6 +36,13 @@
         <title>Admin Panel</title>
 
         <%@include file="components/common_css_js.jsp" %>
+        
+        <style>
+            body{
+                background: #e2e2e2;
+            }
+        </style>
+        
     </head>
     <body>
 
@@ -39,34 +56,34 @@
 
             <div class="row mt-3">
                 <div class="col-md-4">
-                    <div class="card">
+                    <div class="card" data-bs-toggle="tooltip" data-bs-placement="left" title="Number of Users">
                         <div class="card-body text-center">
                             <div class="container">
                                 <img style="max-width: 125px" class="img-fluid rounded-circle" src="img/team.png" alt="user_icon"/>
                             </div>
-                            <h1>998</h1>
+                            <h1><%= m.get("userCount")%></h1>
                             <h1 class="text-uppercase text-muted">Users</h1>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card">
+                    <div class="card" data-bs-toggle="tooltip" data-bs-placement="top" title="Total Categories">
                         <div class="card-body text-center">
                             <div class="container">
                                 <img style="max-width: 125px" class="img-fluid rounded-circle" src="img/list.png" alt="user_icon"/>
                             </div>
-                            <h1>450</h1>
+                            <h1><%= list.size()%></h1>
                             <h1 class="text-uppercase text-muted">Categories</h1>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card">
+                    <div class="card" data-bs-toggle="tooltip" data-bs-placement="right" title="Total Products">
                         <div class="card-body text-center">
                             <div class="container">
                                 <img style="max-width: 125px" class="img-fluid rounded-circle" src="img/product.png" alt="user_icon"/>
                             </div>
-                            <h1>8590</h1>
+                            <h1><%= m.get("productCount")%></h1>
                             <h1 class="text-uppercase text-muted">Products</h1>
                         </div>
                     </div>
@@ -99,6 +116,22 @@
                     </div>
                 </div>
 
+            </div>
+            
+            
+            <!--view products row-->
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <div onclick="window.location='view_products.jsp' " class="card"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Click here to view all the products">
+                        <div class="card-body text-center">
+                            <div class="container">
+                                <img style="max-width: 125px" class="img-fluid  rounded-circle" src="img/view.png" alt="user_icon"/>
+                            </div>
+                            <p class="mt-2">Click Here to View All the Products</p>
+                            <h1 class="text-uppercase text-muted">View Products</h1>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -152,7 +185,7 @@
                         <!--form start-->
 
                         <form action="ProductOperationServlet" method="POST" enctype="multipart/form-data">
-                            
+
                             <input type="hidden" name="operation" value="addproduct"/>
                             <!--product title-->
                             <div class="form-group mt-2">
@@ -181,17 +214,10 @@
 
                             <!--product category-->
 
-                            <%  
-                                CategoryDao cdao = new CategoryDao(FactoryProvider.getFactory());
-                                List<Category> list = cdao.getcategories();
-                            %>
-
-
                             <div class="form-group mt-2">
                                 <select name="catId" class="form-control" id="">
 
-                                    <%
-                                        for (Category c : list) {
+                                    <%                                        for (Category c : list) {
                                     %>
                                     <option value="<%= c.getCategoryId()%>"><%= c.getCategoryTitle()%></option>
                                     <%
@@ -221,5 +247,14 @@
         </div>
 
         <!--end add product modal-->
+
+        <%@include file="components/common_modals.jsp" %>
+
+        <script>
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        </script>
     </body>
 </html>
