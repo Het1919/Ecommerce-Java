@@ -1,5 +1,9 @@
 .custom-bg{
-    background-color: cornflowerblue;
+    background-color: #0f1111;
+}
+
+.linkcolor{
+    color:white !important;
 }
 
 .admin .card{
@@ -14,6 +18,11 @@
 .list-group-item.active{
     background-color: cornflowerblue;
     border-color: cornflowerblue;
+}
+
+.catColor{
+    background: #004080 !important;
+    color: whitesmoke;
 }
 
 .discount-label{

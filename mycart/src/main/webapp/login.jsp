@@ -34,11 +34,9 @@
                                 <a href="register.jsp" class="text-center d-block mb-2">if not registered click here</a>
 
                                 <div class="container text-center">
-                                    <button type="submit" class="btn btn-primary custom-bg">Submit</button>
-                                    <button type="reset" class="btn btn-primary custom-bg">Reset</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <button type="reset" class="btn btn-warning">Reset</button>
                                 </div>
-                                
-                                
                             </form>
                         </div>
                     </div>

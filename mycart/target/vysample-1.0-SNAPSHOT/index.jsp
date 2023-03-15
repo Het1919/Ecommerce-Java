@@ -40,7 +40,7 @@
                 <!--show categories-->
                 <div class="col-md-2">
                     <div class="list-group mt-4">
-                        <a href="index.jsp?category=all" class="list-group-item list-group-item-action active" aria-current="true">
+                        <a href="index.jsp?category=all" class="list-group-item list-group-item-action active catColor" aria-current="true">
                             All Categories
                         </a>
 
@@ -69,7 +69,7 @@
                                     <p class="card-text"><%= Helper.get10Words(p.getpDesc())%></p>
                                 </div>
                                 <div class="card-footer text-center">
-                                    <button class="btn custom-bg text-white" onclick="add_to_cart(<%= p.getpId() %>,'<%= p.getpName() %>',<%= p.getPriceAfterDiscount() %>)">Add to Cart</button>
+                                    <button class="btn btn-primary text-white" onclick="add_to_cart(<%= p.getpId() %>,'<%= p.getpName() %>',<%= p.getPriceAfterDiscount() %>)">Add to Cart</button>
                                     <button class="btn btn-outline-success"> &#8377; <%= p.getPriceAfterDiscount() %>/- <span class="text-secondary discount-label"> &#8377; <%= p.getpPrice() %>,<%= p.getpDiscount() %>% off</span></button>
                                 </div>
                             </div>
